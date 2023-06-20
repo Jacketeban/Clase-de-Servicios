@@ -1,0 +1,4 @@
+/*DROP USER 'arepasuser'@'localhost' ;*/
+CREATE USER 'arepasuser'@'127.0.0.1' IDENTIFIED BY 'Ar3p4sUs3r01';
+GRANT ALL PRIVILEGES ON *.* TO 'arepasuser'@'127.0.0.1' WITH GRANT OPTION;
+FLUSH PRIVILEGES;

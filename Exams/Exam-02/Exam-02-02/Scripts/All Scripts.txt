@@ -1,0 +1,60 @@
+CREATE DATABASE `pricatdb`;
+
+CREATE TABLE `pricatdb`.`Categories` (
+  `Id` INT NOT NULL AUTO_INCREMENT,
+  `Description` VARCHAR(50) NOT NULL,
+  PRIMARY KEY (`Id`));
+
+CREATE TABLE `pricatdb`.`Products` (
+  `Id` INT NOT NULL AUTO_INCREMENT,
+  `CategoryId` INT NOT NULL,
+  `EanCode` VARCHAR(13) NOT NULL,
+  `Description` VARCHAR(50) NOT NULL,
+  `Unit` VARCHAR(20) NOT NULL,
+  `Price` DECIMAL(13,2) NOT NULL,
+  PRIMARY KEY (`Id`),
+  UNIQUE INDEX `EanCode_UNIQUE` (`EanCode` ASC) VISIBLE,
+  INDEX `FK_Products_Categories_idx` (`CategoryId` ASC) VISIBLE,
+  CONSTRAINT `FK_Products_Categories` FOREIGN KEY (`CategoryId`)  REFERENCES `pricatdb`.`Categories` (`Id`)
+);
+
+/*DROP USER 'pricatuser'@'localhost' ;*/
+CREATE USER 'pricatuser'@'localhost' IDENTIFIED BY 'Pr1c4tUs3r';
+GRANT ALL PRIVILEGES ON *.* TO 'pricatuser'@'localhost' WITH GRANT OPTION;
+FLUSH PRIVILEGES;
+
+DELETE FROM `pricatdb`.`Categories` WHERE Id >= 0;
+ALTER TABLE `pricatdb`.`Categories` AUTO_INCREMENT = 1;
+INSERT INTO `pricatdb`.`Categories`(`Description`) VALUES('Alimentos');
+INSERT INTO `pricatdb`.`Categories`(`Description`) VALUES('Bebidas');
+INSERT INTO `pricatdb`.`Categories`(`Description`) VALUES('Productos de Aseo');
+INSERT INTO `pricatdb`.`Categories`(`Description`) VALUES('Ropa');
+INSERT INTO `pricatdb`.`Categories`(`Description`) VALUES('Medicamentos');
+
+DELETE FROM `pricatdb`.`Products` WHERE Id >= 0;
+ALTER TABLE `pricatdb`.`Products` AUTO_INCREMENT = 1;
+INSERT INTO `pricatdb`.`Products` (`CategoryId`, `EanCode`, `Description`, `Unit`, `Price`)
+VALUES ( 1, '7707548516286', 'Arroz', 'Lb', 500.00);
+INSERT INTO `pricatdb`.`Products` (`CategoryId`, `EanCode`, `Description`, `Unit`, `Price`)
+VALUES ( 1, '7707548941507', 'Papa', 'Lb', 1500.00);
+INSERT INTO `pricatdb`.`Products` (`CategoryId`, `EanCode`, `Description`, `Unit`, `Price`)
+VALUES ( 2, '7707548160274', 'Cocacola', 'Lb', 2500.00);
+INSERT INTO `pricatdb`.`Products` (`CategoryId`, `EanCode`, `Description`, `Unit`, `Price`)
+VALUES ( 2, '7707548110958', 'Pepsi', 'Und', 2500.00);
+INSERT INTO `pricatdb`.`Products` (`CategoryId`, `EanCode`, `Description`, `Unit`, `Price`)
+VALUES ( 3, '7707548758303', 'Detergente', 'Kg', 12500.00);
+INSERT INTO `pricatdb`.`Products` (`CategoryId`, `EanCode`, `Description`, `Unit`, `Price`)
+VALUES ( 3, '7707548210801', 'Cloro', 'CC', 21500.00);
+INSERT INTO `pricatdb`.`Products` (`CategoryId`, `EanCode`, `Description`, `Unit`, `Price`)
+VALUES ( 4, '7707548472247', 'Camisa', 'Und', 1500.00);
+INSERT INTO `pricatdb`.`Products` (`CategoryId`, `EanCode`, `Description`, `Unit`, `Price`)
+VALUES ( 4, '7707548427902', 'Pantalon', 'Und', 1500.00);
+INSERT INTO `pricatdb`.`Products` (`CategoryId`, `EanCode`, `Description`, `Unit`, `Price`)
+VALUES ( 5, '7707548799412', 'Jarabe para la Tos', 'Und', 32500.00);
+INSERT INTO `pricatdb`.`Products` (`CategoryId`, `EanCode`, `Description`, `Unit`, `Price`)
+VALUES ( 5, '7707548861546', 'Aspirina 500 mg x 20 Unidades', 'Caja', 42500.00);
+
+DELETE FROM `pricatdb`.`Products` WHERE Id >= 0;
+ALTER TABLE `pricatdb`.`Products` AUTO_INCREMENT = 1;
+DELETE FROM `pricatdb`.`Categories` WHERE Id >= 0;
+ALTER TABLE `pricatdb`.`Categories` AUTO_INCREMENT = 1;
